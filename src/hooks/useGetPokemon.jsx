@@ -23,8 +23,13 @@ function useGetPokedex(gen) {
     const fetchPokedex = async () => {
       const response = await fetch(URL);
       const data = await response.json();
+      const newPokedex = [];
 
-      setPokedex(data.results);
+      data.results.forEach((pokemon, index) => {
+        newPokedex.push({ ...pokemon, number: parseInt(offset) + index + 1 });
+      });
+
+      setPokedex(newPokedex);
     };
 
     fetchPokedex().catch((error) => console.log(error));
