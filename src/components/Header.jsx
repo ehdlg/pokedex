@@ -16,10 +16,10 @@ function Header({ generation, setGeneration }) {
   );
   return (
     <header>
-      <h1>hello world</h1>
+      <h1>Pokedex</h1>
 
       <select
-        name='genertion'
+        name='generation'
         id='generation'
         value={generation}
         onChange={handleChangeGen}
