@@ -10,7 +10,6 @@ function App() {
   });
 
   const setGeneration = (newGen) => {
-    console.log('aa');
     const newFilter = { ...filters, generation: newGen };
     setFilters(newFilter);
   };
