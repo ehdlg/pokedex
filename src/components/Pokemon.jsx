@@ -28,6 +28,8 @@ function Pokemon({ pokemon }) {
             );
           })}
         </div>
+
+        <h4 className='pokemon-name'>{pokemon.name}</h4>
       </div>
     </div>
   );
