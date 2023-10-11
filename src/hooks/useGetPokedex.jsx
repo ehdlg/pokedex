@@ -1,50 +1,44 @@
 import { useEffect, useState } from 'react';
-function useGetPokedex(gen) {
+import pokemonDB from '../db/pokemon.json';
+
+function useGetPokedex(filters) {
   const [pokedex, setPokedex] = useState([]);
-  const [pokedexLoading, setPokedexLoading] = useState(false);
-  const [pokedexError, setPokedexError] = useState(null);
 
   const genPoke = {
-    1: '0-151',
-    2: '151-100',
-    3: '251-135',
-    4: '386-107',
-    5: '493-156',
-    6: '649-72',
-    7: '721-88',
-    8: '809-97',
-    9: '905-111',
-    all: '0-1016',
+    1: '1-151',
+    2: '152-251',
+    3: '252-386',
+    4: '387-493',
+    5: '494-649',
+    6: '650-721',
+    7: '722-809',
+    8: '810-905',
+    9: '906-1010',
+    all: '1-1010',
   };
 
-  let [offset, limit] = genPoke[gen].split('-');
+  const selectedGenRange = genPoke[filters.generation]
+    ? genPoke[filters.generation]
+    : genPoke[1];
+
+  let [start, end] = selectedGenRange.split('-');
 
   useEffect(() => {
-    const URL = `https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=${limit}`;
-    setPokedexLoading(true);
-    setPokedexError(null);
-
-    const fetchPokedex = async () => {
-      const response = await fetch(URL);
-      if (!response.ok || response.status >= 400) {
-        throw new Error('Error tryng to fetch');
-      }
-      const data = await response.json();
-      const newPokedex = [];
-
-      data.results.forEach((pokemon, index) => {
-        newPokedex.push({ ...pokemon, number: parseInt(offset) + index + 1 });
+    let newPokedex = pokemonDB.slice(start - 1, end);
+    if (filters.search) {
+      console.log('a');
+      newPokedex = newPokedex.filter((pokemon) => {
+        return (
+          pokemon.name.indexOf(filters.search) !== -1 ||
+          pokemon.number == filters.search
+        );
       });
+    }
 
-      setPokedex(newPokedex);
-    };
+    setPokedex(newPokedex);
+  }, [filters, end, start]);
 
-    fetchPokedex()
-      .catch((error) => setPokedexError(error.message))
-      .finally(() => setPokedexLoading(false));
-  }, [gen, limit, offset]);
-
-  return { pokedex, pokedexError, pokedexLoading };
+  return pokedex;
 }
 
 export default useGetPokedex;
