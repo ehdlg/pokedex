@@ -88,8 +88,7 @@
 }
 
 .pokeball-bkg {
-  background: url('https://www.startpage.com/av/proxy-image?piurl=http%3A%2F%2Fwallpapercave.com%2Fwp%2FxLZrFev.png&sp=1697012707T69c16f029b9decdf8d7167119edb998788141cf4560e0d5f8328e5d0081691da')
-    no-repeat center;
+  background: url('../img/pokeball-background.jpg') no-repeat center;
   background-size: cover;
   position: relative;
 }
