@@ -1,17 +1,34 @@
 import { useState } from 'react';
 import '../stylesheets/App.css';
-import useGetPokedex from '../hooks/useGetPokemon';
+import useGetPokedex from '../hooks/useGetPokedex';
 import Header from './Header.jsx';
+import Pokedex from './Pokedex';
 function App() {
-  const [generation, setGeneration] = useState(1);
+  const [filters, setFilters] = useState({
+    generation: 1,
+    search: '',
+  });
 
-  const pokedex = useGetPokedex(generation);
+  const setGeneration = (newGen) => {
+    console.log('aa');
+    const newFilter = { ...filters, generation: newGen };
+    setFilters(newFilter);
+  };
 
-  console.log(pokedex);
+  const setSearch = (search) => {
+    setFilters({ ...filters, search: search });
+  };
+
+  const pokedex = useGetPokedex(filters);
 
   return (
     <>
-      <Header generation={generation} setGeneration={setGeneration} />
+      <Header
+        generation={filters.generation}
+        handleChangeGen={setGeneration}
+        handleSearch={setSearch}
+      />
+      <Pokedex pokedex={pokedex} />
     </>
   );
 }
