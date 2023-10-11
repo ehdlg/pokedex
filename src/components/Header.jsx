@@ -1,8 +1,9 @@
-function Header({ generation, setGeneration }) {
+/* eslint-disable react/prop-types */
+function Header({ generation, handleChangeGen, handleSearch }) {
   const NUM_GEN = 9;
 
-  const handleChangeGen = (e) => {
-    setGeneration(e.target.value);
+  const changeGen = (e) => {
+    handleChangeGen(e.target.value);
   };
 
   const genOptions = [];
@@ -22,11 +23,17 @@ function Header({ generation, setGeneration }) {
         name='generation'
         id='generation'
         value={generation}
-        onChange={handleChangeGen}
+        onChange={changeGen}
       >
-        <option value=''></option>
         {genOptions.map((option) => option)}
       </select>
+      <input
+        type='text'
+        name='search'
+        id='search'
+        placeholder='Search by name or Pokedex entry'
+        onChange={(e) => handleSearch(e.target.value)}
+      />
     </header>
   );
 }
