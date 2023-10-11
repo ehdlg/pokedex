@@ -1,0 +1,18 @@
+.pokedex {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.pokemon {
+  border: 1px solid red;
+  padding: 1rem;
+}
+
+.pokemon-name {
+  text-transform: capitalize;
+}
+
+.pokemon-img {
+  width: 40%;
+}
